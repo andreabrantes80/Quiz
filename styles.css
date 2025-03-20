@@ -1,0 +1,109 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Garante que o body ocupe toda a tela */
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.container {
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Usa porcentagem para se adaptar à tela */
+  max-width: 600px; /* Limita a largura máxima em telas grandes */
+  margin: 20px; /* Margem para não colar nas bordas em celulares */
+}
+
+.pergunta {
+  font-size: 24px;
+  margin-bottom: 20px;
+  word-wrap: break-word; /* Quebra palavras longas em telas pequenas */
+}
+
+.opcoes {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espaçamento reduzido para caber em telas menores */
+  flex-wrap: wrap; /* Permite que as opções quebrem para a próxima linha */
+}
+
+.opcoes label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 18px;
+  margin: 5px; /* Margem pequena para espaçamento */
+  white-space: nowrap; /* Impede quebra de texto dentro do label */
+}
+
+.opcoes input[type="radio"] {
+  margin-right: 5px;
+  transform: scale(1.2); /* Aumenta o tamanho do radio para facilitar clique em celulares */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%; /* Botão ocupa toda a largura em telas pequenas */
+  max-width: 200px; /* Limita a largura máxima */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#resultado {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Media Queries para telas menores (ex.: celulares) */
+@media (max-width: 600px) {
+  .pergunta {
+    font-size: 20px; /* Reduz o tamanho da fonte */
+  }
+
+  .opcoes label {
+    font-size: 16px; /* Reduz o tamanho da fonte das opções */
+  }
+
+  .opcoes {
+    gap: 10px; /* Menos espaço entre opções */
+    justify-content: flex-start; /* Alinha à esquerda para melhor uso do espaço */
+  }
+
+  button {
+    padding: 8px 16px; /* Reduz o padding */
+    font-size: 14px; /* Reduz a fonte do botão */
+  }
+
+  #resultado {
+    font-size: 16px; /* Reduz a fonte do resultado */
+  }
+}
+
+@media (max-width: 400px) {
+  .pergunta {
+    font-size: 18px;
+  }
+
+  .opcoes label {
+    font-size: 14px;
+  }
+
+  .opcoes {
+    flex-direction: column; /* Em telas muito pequenas, opções vão para uma coluna */
+    align-items: flex-start;
+  }
+}
