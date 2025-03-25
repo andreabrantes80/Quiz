@@ -115,6 +115,82 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
+  const perguntasMuitoDificeis = [
+    {
+      pergunta: "Qual animal tem o maior tempo de gestação entre os mamíferos?",
+      opcoes: ["Elefante Africano", "Baleia-azul", "Girafa", "Rinoceronte"],
+      resposta: "Elefante Africano", // Até 22 meses
+    },
+    {
+      pergunta: "Qual é o único mamífero capaz de voar de verdade?",
+      opcoes: ["Morcego", "Esquilo-voador", "Lêmure-voador", "Pterodáctilo"],
+      resposta: "Morcego",
+    },
+    {
+      pergunta:
+        "Qual animal é conhecido por ter a mordida mais forte do reino animal?",
+      opcoes: ["Crocodilo do Nilo", "Leão", "Tubarão-branco", "Hiena"],
+      resposta: "Crocodilo do Nilo", // Força de mordida de até 5.000 psi
+    },
+    {
+      pergunta:
+        "Qual é o animal mais venenoso do mundo, capaz de matar um humano em poucas horas?",
+      opcoes: [
+        "Rã-dourada-venenosa",
+        "Cobra Taipan",
+        "Aranha-armadeira",
+        "Escorpião-amarelo",
+      ],
+      resposta: "Rã-dourada-venenosa", // Uma rã contém veneno suficiente para matar 10 humanos
+    },
+    {
+      pergunta:
+        "Qual pássaro é conhecido por imitar sons, incluindo vozes humanas?",
+      opcoes: ["Papagaio-cinza-africano", "Corvo", "Mainá", "Lira"],
+      resposta: "Papagaio-cinza-africano",
+    },
+    {
+      pergunta:
+        "Qual animal marinho é famoso por ter três corações e mudar de cor para se camuflar?",
+      opcoes: ["Polvo", "Lula", "Choco", "Náutilo"],
+      resposta: "Polvo",
+    },
+    {
+      pergunta:
+        "Qual é o maior crustáceo do mundo, que pode viver mais de 100 anos?",
+      opcoes: [
+        "Caranguejo-dos-coqueiros",
+        "Lagosta",
+        "Siri-azul",
+        "Caranguejo-real",
+      ],
+      resposta: "Caranguejo-dos-coqueiros", // Pode pesar até 4 kg e medir 1 metro
+    },
+    {
+      pergunta:
+        "Qual animal é conhecido por sua habilidade de regenerar membros inteiros, incluindo o cérebro?",
+      opcoes: ["Estrela-do-mar", "Lagarto", "Polvo", "Salamandra"],
+      resposta: "Estrela-do-mar",
+    },
+    {
+      pergunta:
+        "Qual é o menor mamífero do mundo, pesando apenas cerca de 2 gramas?",
+      opcoes: [
+        "Musaranho-pigmeu",
+        "Morcego-abelha",
+        "Rato-pigmeu",
+        "Toupeira-anã",
+      ],
+      resposta: "Morcego-abelha",
+    },
+    {
+      pergunta:
+        "Qual animal é conhecido por dormir pendurado de cabeça para baixo e usar ecolocalização?",
+      opcoes: ["Morcego", "Preguiça", "Tamanduá", "Tatu"],
+      resposta: "Morcego",
+    },
+  ];
+
   let perguntas = perguntasIniciais;
   let perguntaAtual = 0;
   let pontuacao = 0;
@@ -129,9 +205,70 @@ document.addEventListener("DOMContentLoaded", () => {
   const popup = document.getElementById("popup");
   const botaoProximoNivel = document.getElementById("proximo-nivel");
   const botaoFecharPopup = document.getElementById("fechar-popup");
+  const fireworksContainer = document.getElementById("fireworks");
+
+  // Função para iniciar a animação de fogos de artifício
+  function startFireworks() {
+    fireworksContainer.style.display = "block";
+    particlesJS("fireworks", {
+      particles: {
+        number: { value: 100, density: { enable: true, value_area: 800 } },
+        color: {
+          value: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff"],
+        }, // Cores variadas
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.8,
+          random: true,
+          anim: { enable: true, speed: 1, opacity_min: 0 },
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: { enable: true, speed: 2, size_min: 0.1 },
+        },
+        line_linked: { enable: false },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: "top",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: { enable: false },
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: false },
+          onclick: { enable: false },
+          resize: true,
+        },
+      },
+      retina_detect: true,
+    });
+    if (fireworksTimeout) {
+      clearTimeout(fireworksTimeout); // Limpa qualquer temporizador anterior
+    }
+    fireworksTimeout = setTimeout(() => {
+      stopFireworks();
+    }, 15000); // 15 segundos
+  }
+
+  // Função para parar a animação de fogos de artifício
+  function stopFireworks() {
+    fireworksContainer.style.display = "none";
+    // Limpa as partículas existentes
+    if (window.pJSDom && window.pJSDom[0]) {
+      window.pJSDom[0].pJS.fn.vendors.destroypJS();
+      window.pJSDom = [];
+    }
+  }
 
   function mostrarPergunta() {
-    if (perguntaAtual < perguntas.length) {
+    if (perguntaAtual < perguntas.length && nivelAtual !== "Muito Difícil") {
       const pergunta = perguntas[perguntaAtual];
       if (!pergunta || !pergunta.opcoes) {
         // Verifica se pergunta ou opcoes é undefined
@@ -204,14 +341,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const porcentagemAcerto = (pontuacao / perguntas.length) * 100;
 
-    if (pontuacao === perguntas.length) {
+    if (pontuacao === perguntas.length && nivelAtual !== "Muito Difícil") {
+      // Se acertou todas as perguntas e não está no último nível, mostra o popup
       popup.style.display = "flex";
       elementoResultado.innerHTML = "";
+      startFireworks();
+      // Atualiza o texto do popup com base no nível atual
+      const popupContent = document.querySelector(".popup-content");
+      if (nivelAtual === "Fácil") {
+        popupContent.querySelector("h2").textContent = "Você passou de nível!";
+        popupContent.querySelector("p").textContent =
+          "Parabéns! Você acertou todas as perguntas. Deseja acessar perguntas mais difíceis?";
+        botaoProximoNivel.textContent = "Acessar Perguntas Mais Difíceis";
+      } else if (nivelAtual === "Difícil") {
+        popupContent.querySelector("h2").textContent =
+          "Você é um especialista!";
+        popupContent.querySelector("p").textContent =
+          "Incrível! Você acertou todas as perguntas difíceis. Deseja enfrentar o nível muito difícil?";
+        botaoProximoNivel.textContent = "Acessar Nível Muito Difícil";
+      }
     } else {
-      let resultadoHTML =
-        porcentagemAcerto >= 70
-          ? `<span class="mensagem-aprovado">Parabéns, você passou no teste com ${pontuacao} de ${perguntas.length} acertos!</span>`
-          : `<span class="mensagem-reprovado">Você não passou no teste. Você acertou ${pontuacao} de ${perguntas.length} acertos, tente novamente!</span>`;
+      stopFireworks();
+      // Se não acertou todas ou está no nível "Muito Difícil", mostra o resultado final
+      let resultadoHTML = "";
+      if (nivelAtual === "Muito Difícil" && pontuacao === perguntas.length) {
+        resultadoHTML = `<span class="mensagem-aprovado">Parabéns, você é um mestre dos animais! Você acertou todas as perguntas do nível Muito Difícil com ${pontuacao} de ${perguntas.length} acertos!</span>`;
+      } else {
+        resultadoHTML =
+          porcentagemAcerto >= 70
+            ? `<span class="mensagem-aprovado">Parabéns, você passou no teste com ${pontuacao} de ${perguntas.length} acertos!</span>`
+            : `<span class="mensagem-reprovado">Você não passou no teste. Você acertou ${pontuacao} de ${perguntas.length} acertos, tente novamente!</span>`;
+      }
 
       resultadoHTML += "<br><br><h2>Respostas:</h2><br>";
 
@@ -220,7 +380,6 @@ document.addEventListener("DOMContentLoaded", () => {
           pergunta.pergunta
         }<br>`;
         resultadoHTML += `<strong>Resposta Correta:</strong> ${pergunta.resposta}<br>`;
-
         resultadoHTML += `<strong>Sua Resposta:</strong> ${
           respostaUsuario[index] ? respostaUsuario[index] : "Não respondida"
         }<br></p>`;
@@ -231,27 +390,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function reiniciarQuiz(novoConjuntoPerguntas) {
-    console.log(
-      "reiniciarQuiz chamado, novoConjuntoPerguntas:",
-      novoConjuntoPerguntas
-    );
     perguntas = novoConjuntoPerguntas || perguntasIniciais;
-    console.log("Conjunto de perguntas atualizado:", perguntas);// Se não passar novo conjunto, usa o inicial
-    nivelAtual =
-      novoConjuntoPerguntas === perguntasDificeis ? "Difícil" : "Fácil";
+    if (novoConjuntoPerguntas === perguntasDificeis) {
+      nivelAtual = "Difícil";
+    } else if (novoConjuntoPerguntas === perguntasMuitoDificeis) {
+      nivelAtual = "Muito Difícil";
+    } else {
+      nivelAtual = "Fácil";
+    }
     perguntaAtual = 0;
     pontuacao = 0;
     respostaUsuario = [];
     elementoResultado.innerHTML = "";
     popup.style.display = "none";
+    elementPergunta.style.display = "block";
+    elementOpcoes.style.display = "flex";
+    botaoSubmeter.style.display = "block";
+    stopFireworks();
     mostrarPergunta();
   }
 
   botaoSubmeter.addEventListener("click", verificarResposta);
 
   botaoProximoNivel.addEventListener("click", () => {
-    console.log("Carregando perguntas difíceis...");
-    reiniciarQuiz(perguntasDificeis); // Carrega as perguntas difíceis
+   if (nivelAtual === "Fácil") {
+     reiniciarQuiz(perguntasDificeis);
+   } else if (nivelAtual === "Difícil") {
+     reiniciarQuiz(perguntasMuitoDificeis);
+   }
   });
 
   botaoFecharPopup.addEventListener("click", () => {

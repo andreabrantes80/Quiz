@@ -6,6 +6,8 @@ body {
   min-height: 100vh; /* Garante que o body ocupe toda a tela */
   margin: 0;
   background-color: #f0f0f0;
+  position: relative; /* Necessário para posicionar os fogos de artifício */
+  overflow: hidden; /* Evita barras de rolagem desnecessárias */
 }
 
 .container {
@@ -17,6 +19,7 @@ body {
   width: 90%; /* Usa porcentagem para se adaptar à tela */
   max-width: 600px; /* Limita a largura máxima em telas grandes */
   margin: 20px; /* Margem para não colar nas bordas em celulares */
+  z-index: 10; /* Garante que o contêiner fique acima dos fogos */
 }
 
 .pergunta {
@@ -61,6 +64,13 @@ button {
   max-width: 200px; /* Limita a largura máxima */
 }
 
+/* Adiciona uma classe para centralizar o botão */
+.centralizado {
+  display: block; /* Pode ser block */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 button:hover {
   background-color: #256e28;
 }
@@ -69,6 +79,12 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
   color: #333;
+  max-height: 300px; /* Altura máxima para o contêiner de resultados */
+  overflow-y: auto; /* Permite rolagem vertical */
+  padding: 10px;
+  border: 1px solid #ddd; /* Adiciona uma borda para melhor visualização */
+  border-radius: 5px;
+  background-color: #f9f9f9; /
 }
 
 .mensagem-aprovado {
@@ -93,6 +109,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
 }
 
 .popup-content {
@@ -142,6 +159,17 @@ button:disabled {
   font-weight: bold;
   color: #4caf50;
   margin-bottom: 10px;
+}
+
+/* Estilos para os fogos de artifício */
+.fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Fica atrás do contêiner e do popup */
+  display: none; /* Escondido por padrão */
 }
 
 /* Media Queries para telas menores (ex.: celulares) */

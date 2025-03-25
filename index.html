@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz sobre animais</title>
 
     <link
@@ -11,28 +11,32 @@
     />
 
     <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <div id="fireworks" class="fireworks"></div>
 
     <div class="container">
-        <div id="nivel" class="nivel"></div> <!-- Novo elemento para mostrar o nível -->
-        <div id="pergunta" class="pergunta"></div>
-        <div id="opcoes" class="opcoes"></div>
-        <button id="submeter">Submeter Resposta</button>
-        <div id="resultado"></div>
+      <div id="nivel" class="nivel"></div>
+      <div id="pergunta" class="pergunta"></div>
+      <div id="opcoes" class="opcoes"></div>
+      <button id="submeter" class="centralizado">Submeter Resposta</button>
+      <div id="resultado"></div>
     </div>
 
     <!-- Popup para passar de nível -->
     <div id="popup" class="popup">
-        <div class="popup-content">
-            <h2>Você passou de nível!</h2>
-            <p>Parabéns! Você acertou todas as perguntas. Deseja acessar perguntas mais difíceis?</p>
-            <button id="proximo-nivel">Acessar Perguntas Mais Difíceis</button>
-            <button id="fechar-popup">Fechar</button>
-        </div>
+      <div class="popup-content">
+        <h2>Você passou de nível!</h2>
+        <p>
+          Parabéns! Você acertou todas as perguntas. Deseja acessar perguntas
+          mais difíceis?
+        </p>
+        <button id="proximo-nivel">Acessar Perguntas Mais Difíceis</button>
+        <button id="fechar-popup">Fechar</button>
+      </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="quiz.js"></script>
-
-</body>
+  </body>
 </html>
