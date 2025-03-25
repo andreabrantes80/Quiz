@@ -15,10 +15,21 @@
 <body>
 
     <div class="container">
+        <div id="nivel" class="nivel"></div> <!-- Novo elemento para mostrar o nível -->
         <div id="pergunta" class="pergunta"></div>
         <div id="opcoes" class="opcoes"></div>
         <button id="submeter">Submeter Resposta</button>
         <div id="resultado"></div>
+    </div>
+
+    <!-- Popup para passar de nível -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Você passou de nível!</h2>
+            <p>Parabéns! Você acertou todas as perguntas. Deseja acessar perguntas mais difíceis?</p>
+            <button id="proximo-nivel">Acessar Perguntas Mais Difíceis</button>
+            <button id="fechar-popup">Fechar</button>
+        </div>
     </div>
 
     <script src="quiz.js"></script>
