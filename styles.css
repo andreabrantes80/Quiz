@@ -172,6 +172,25 @@ button:disabled {
   display: none; /* Escondido por padrão */
 }
 
+.assunto-selecao {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.assunto-selecao select, .assunto-selecao button {
+  padding: 8px;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .assunto-selecao {
+    flex-direction: column;
+  }
+}
+
 /* Media Queries para telas menores (ex.: celulares) */
 @media (max-width: 600px) {
   .pergunta {
